@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player - Subscribe for Updates</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">🎵 Music Hub</h1>
+            <p class="tagline">Discover New Sounds, Stay Updated</p>
+        </header>
+
+        <main>
+            <!-- Fixed Action Buttons (Bottom Right) -->
+            <div class="fixed-action-buttons">
+                <button id="open-upload-modal-btn" class="fixed-upload-button" title="Upload New Music">
+                    <span class="fixed-button-icon">🎤</span>
+                </button>
+                <button id="open-subscription-modal-btn" class="fixed-subscription-button" title="Subscribe to Newsletter">
+                    <span class="fixed-button-icon">✉️</span>
+                </button>
+            </div>
+
+            <!-- Upload Modal -->
+            <div id="upload-modal" class="modal-overlay" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>🎤 Upload New Music</h2>
+                        <button class="modal-close-btn" id="close-upload-modal-btn">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="upload-description">
+                            Upload your new track and automatically notify all subscribers!
+                        </p>
+                        <div class="upload-area" id="upload-area">
+                            <input 
+                                type="file" 
+                                id="audio-upload" 
+                                accept="audio/*" 
+                                style="display: none;"
+                            >
+                            <div class="upload-placeholder">
+                                <span class="upload-icon">🎵</span>
+                                <p>Click to upload or drag and drop</p>
+                                <p class="upload-hint">MP3, WAV, OGG, M4A files supported</p>
+                            </div>
+                        </div>
+                        <div class="upload-info" id="upload-info" style="display: none;">
+                            <div class="upload-details">
+                                <input 
+                                    type="text" 
+                                    id="track-title" 
+                                    placeholder="歌曲名称 (必填)" 
+                                    class="track-input"
+                                    required
+                                >
+                                <input 
+                                    type="text" 
+                                    id="track-artist" 
+                                    placeholder="艺术家/演唱者 (必填)" 
+                                    class="track-input"
+                                    required
+                                >
+                                <button id="upload-submit-btn" class="upload-submit-btn">
+                                    <span>上传并通知所有订阅者</span>
+                                    <span>📤</span>
+                                </button>
+                                <p style="color: #6b7280; font-size: 0.9rem; margin-top: 10px; text-align: center;">
+                                    上传后，订阅者将收到包含完整歌曲信息的新歌发布邮件
+                                </p>
+                            </div>
+                        </div>
+                        <div id="upload-message" class="form-message"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Music Player Section -->
+            <section class="player-section">
+                <div class="player-card">
+                    
+                    <div class="player-info">
+                        <h2 class="song-title">No tracks available</h2>
+                        <p class="artist-name">Upload a song to get started</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress" id="progress"></div>
+                            </div>
+                            <div class="time-info">
+                                <span id="current-time">0:00</span>
+                                <span id="duration">0:00</span>
+                            </div>
+                        </div>
+                        <div class="controls">
+                            <button class="control-btn" id="prev-btn">⏮</button>
+                            <button class="control-btn play-pause" id="play-pause-btn">▶</button>
+                            <button class="control-btn" id="next-btn">⏭</button>
+                        </div>
+                        <div class="volume-control">
+                            <span>🔊</span>
+                            <input type="range" id="volume-slider" min="0" max="100" value="70">
+                            <span id="volume-value">70%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Playlist Section -->
+                    <div class="playlist-container">
+                        <h3 class="playlist-title">🎵 Playlist</h3>
+                        <div class="playlist" id="playlist">
+                            <!-- Playlist items will be generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subscription Modal -->
+            <div id="subscription-modal" class="modal-overlay" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>🎼 Stay in the Loop</h2>
+                        <button class="modal-close-btn" id="close-subscription-modal-btn">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="subscription-description">
+                            Subscribe to our newsletter and be the first to know about new releases, 
+                            exclusive content, and special events. You'll receive a welcome email 
+                            immediately and get notified whenever we drop new music!
+                        </p>
+                        <form id="subscription-form" class="subscription-form">
+                            <div class="input-group">
+                                <input 
+                                    type="email" 
+                                    id="email-input" 
+                                    placeholder="Enter your email address" 
+                                    required
+                                    autocomplete="email"
+                                >
+                                <button type="submit" class="subscribe-btn">
+                                    <span>Subscribe</span>
+                                    <span class="btn-icon">✉️</span>
+                                </button>
+                            </div>
+                            <div id="form-message" class="form-message"></div>
+                        </form>
+                        <div class="benefits">
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✨</span>
+                                <span>Welcome email upon subscription</span>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🎵</span>
+                                <span>New song notifications</span>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">🎁</span>
+                                <span>Exclusive content & updates</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Welcome to my world of music</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
